@@ -1,6 +1,6 @@
 # Hossein Akhlaghpour
 
-**Principal Applied AI Engineer | Staff AI Engineer | Production LLM & ML Systems Architect**  
+**Principal Applied AI Engineer | Staff AI Engineer | Enterprise Context & LLM Systems Architect**  
 San Francisco Bay Area, CA  
 [hossein.akhlaghpour@gmail.com](mailto:hossein.akhlaghpour@gmail.com) | linkedin.com/in/hosseinakhlaghpour
 
@@ -8,21 +8,22 @@ San Francisco Bay Area, CA
 
 ## Executive Summary
 
-Principal-level applied AI and machine learning engineer with 8+ years building production AI/ML systems and 10+ additional years in software architecture, distributed systems, and technical leadership. Deep hands-on experience designing and shipping enterprise NLP, GenAI, natural-language interfaces, information extraction, secure API/tool orchestration, ML pipelines, and high-scale distributed platforms. Strong fit for Staff / Principal AI roles requiring both architecture ownership and implementation depth across LLM applications, RAG, evaluation, guardrails, production reliability, cloud infrastructure, and cross-functional delivery.
+Principal-level applied AI and machine learning engineer with 8+ years building production AI/ML systems and 10+ additional years in software architecture, distributed systems, and technical leadership. Deep hands-on experience designing and shipping enterprise NLP, GenAI, natural-language interfaces, information extraction, secure API/tool orchestration, ML pipelines, and AI-ready context systems for legal, CRM, and private-capital / financial-services workflows. Strong fit for Staff / Principal AI roles requiring both architecture ownership and implementation depth across LLM applications, RAG, context engineering, schema grounding, evaluation, guardrails, production reliability, cloud infrastructure, and cross-functional delivery.
 
 ---
 
 ## Target Roles
 
-Principal AI Engineer · Staff AI Engineer · Principal Machine Learning Engineer · Staff Machine Learning Engineer · Applied AI Engineer · LLM Platform Engineer · ML Platform Architect · Senior Applied Scientist / Engineer · AI Technical Lead
+Principal AI Engineer · Staff AI Engineer · Principal Machine Learning Engineer · Staff Machine Learning Engineer · Applied AI Engineer · LLM Platform Engineer · ML Platform Architect · Senior Applied Scientist / Engineer · AI Technical Lead · Enterprise AI Engineer
 
 ---
 
 ## Principal / Staff-Level Strengths
 
-- Designed and delivered production AI capabilities for enterprise legal and CRM workflows, including natural-language interfaces, information extraction, compliant narrative generation, and secure API orchestration.
+- Designed and delivered production AI capabilities for enterprise legal, CRM, and private-capital / financial workflows, including context construction, natural-language interfaces, information extraction, compliant narrative generation, and secure API orchestration.
+- Built systems that transform client data, documents, customized schemas, and workflow artifacts into AI-digestible context used for grounded legal and financial workflow automation.
 - Built a natural-language CRM interface for a product used by 10,000+ customers, translating conversational questions into secure API calls and structured application outputs.
-- Defined reusable engineering patterns for LLM integration, retrieval, tool invocation, prompt/output controls, workflow validation, model evaluation, guardrails, and production governance.
+- Defined reusable engineering patterns for LLM integration, retrieval, schema grounding, context validation, tool invocation, prompt/output controls, model evaluation, guardrails, and production governance.
 - Built and optimized ML systems in reliability-sensitive environments, including smart-grid systems controlling 10,000+ batteries and real-time event-dispatch pipelines.
 - Designed and implemented scalable ML/data platforms using Python, Kubernetes, Spark, Kafka, AWS, REST/gRPC services, PostgreSQL, Redis, vector databases, and CI/CD workflows.
 - Led teams of up to 10 developers and guided architecture decisions across ML systems, distributed infrastructure, embedded systems, cloud platforms, and high-volume data processing.
@@ -31,13 +32,17 @@ Principal AI Engineer · Staff AI Engineer · Principal Machine Learning Enginee
 
 ## Selected Applied AI / ML Systems
 
+### Enterprise Context Engineering for Legal / Financial AI — Production Architecture
+
+Designed and implemented approaches for transforming enterprise client data into AI-ready context for legal, CRM, and private-capital / financial-services workflows. Work included parsing structured and unstructured data, mapping customized schemas to domain concepts, preserving source traceability, grounding LLM outputs in available context, and integrating generated answers with secure product workflows.
+
 ### Enterprise Natural-Language CRM Interface — Production LLM/NLP System
 
 Architected and delivered a natural-language interface for customized CRM schemas, translating user questions into secure API calls and returning structured UI outputs plus natural-language responses. The system required schema grounding, intent interpretation, API/action generation, validation of generated operations, and safe integration into enterprise workflows.
 
 ### Secure LLM Tool-Orchestration Patterns — Production Architecture
 
-Standardized implementation patterns for model integration, prompt and output controls, tool invocation, workflow-level validation, error handling, and governance of enterprise AI features. Focused on production reliability, controlled outputs, permission-aware execution, and safe integration with existing product surfaces.
+Standardized implementation patterns for context construction, model integration, prompt and output controls, tool invocation, workflow-level validation, error handling, and governance of enterprise AI features. Focused on production reliability, controlled outputs, permission-aware execution, and safe integration with existing product surfaces.
 
 ### Legal Narrative Generation Workflow — Applied GenAI
 
@@ -63,13 +68,14 @@ Designed a reference architecture for AI agents operating over enterprise data, 
 
 Palo Alto, CA | Jan 2021 – Jun 2026
 
-- Led architecture and implementation of AI-powered NLP and generative AI capabilities for enterprise legal and CRM workflows.
+- Led architecture and implementation of AI-powered NLP and generative AI capabilities for enterprise legal, CRM, and private-capital / financial-services workflows.
+- Helped convert client data, documents, customized schemas, and workflow artifacts into structured, AI-digestible context for LLM/NLP systems.
 - Architected a natural-language interface for a CRM application used by more than 10,000 customers, enabling users to query customized schemas through natural language.
-- Engineered secure translation of user intent into API calls, returning structured UI outputs and natural-language responses while respecting enterprise workflow constraints.
+- Engineered secure translation of user intent into API calls, returning structured UI outputs and natural-language responses while respecting enterprise data models, permissions, and workflow constraints.
 - Developed compliant narrative-generation workflows using historical notes, user actions, validation controls, and domain-specific output constraints.
 - Built an email signature extraction system using named entity recognition to convert unstructured communications into structured CRM data.
-- Standardized production engineering patterns for model integration, prompt/output controls, workflow-level validation, governance, and reliability of enterprise AI features.
-- Partnered with product, engineering, and enterprise stakeholders in a forward-deployed model to translate ambiguous legal and CRM workflows into production AI systems.
+- Standardized production engineering patterns for context construction, model integration, prompt/output controls, workflow-level validation, governance, and reliability of enterprise AI features.
+- Partnered with product, engineering, and enterprise stakeholders in a forward-deployed model to translate ambiguous legal, CRM, and financial workflows into production AI systems.
 
 ### AutoGrid — Senior Machine Learning Engineer
 
@@ -123,7 +129,8 @@ Palo Alto, CA | Jul 2008 – Jun 2009
 
 ## Technical Skills
 
-**Applied AI / LLM Systems:** LLM Applications, RAG, Agentic Workflows, Tool Use / Function Calling, Model Routing, Prompt Engineering, Evaluation Frameworks, Guardrails, Human-in-the-Loop Workflows, Source-Backed Answers, AI Governance, Workflow Automation  
+**Applied AI / LLM Systems:** LLM Applications, RAG, Context Engineering, Schema Grounding, Semantic Data Modeling, Agentic Workflows, Tool Use / Function Calling, Model Routing, Prompt Engineering, Evaluation Frameworks, Guardrails, Human-in-the-Loop Workflows, Source-Backed Answers, AI Governance, Workflow Automation  
+**Legal / Financial AI:** Legal Workflows, CRM Workflows, Private-Capital / Financial-Services Workflows, Client Data Parsing, Document Understanding, Complex Question Answering, Permission-Aware Retrieval, AI-Ready Context Construction  
 **Machine Learning / NLP:** PyTorch, Transformers, Fine-Tuning, LoRA / QLoRA, Embeddings, Reranking, NER, Information Extraction, XGBoost, CatBoost, U-Net, LSTM, Contextual Bandits, Optimization  
 **Engineering / Platforms:** Python, FastAPI, gRPC, REST APIs, Docker, Kubernetes, AWS, Spark, Kafka, Airflow, PostgreSQL, Redis, Vector Databases, CI/CD, MLflow, Kubeflow  
 **Architecture / Leadership:** System Design, ML Platform Architecture, Distributed Systems, Technical Strategy, Production Reliability, Stakeholder Alignment, Team Leadership, Cross-Functional Delivery
