@@ -105,7 +105,11 @@ Additional important skills:
 
 ## Open To Work Settings
 
-Recommended job titles:
+Recommended job titles — comma-separated for LinkedIn paste:
+
+AI Architect, Enterprise AI Architect, Generative AI Architect, Principal AI Engineer, Staff AI Engineer, Principal Machine Learning Engineer, Staff Machine Learning Engineer, Applied AI Lead, Forward-Deployed AI Engineer, AI Technical Lead, LLM Platform Engineer, ML Platform Architect, AI Solutions Architect
+
+Recommended job titles — one per line:
 - AI Architect
 - Enterprise AI Architect
 - Generative AI Architect
