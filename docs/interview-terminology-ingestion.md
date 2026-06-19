@@ -233,6 +233,171 @@ Use this structure:
 
 ---
 
+## NFR — Non-Functional Requirement
+
+An **NFR** describes how the system should behave, not just what features it should provide.
+
+Functional requirements describe capabilities, for example:
+
+- Ingest documents from SharePoint.
+- Extract text from PDFs.
+- Generate embeddings.
+- Serve retrieval results to a RAG application.
+
+Non-functional requirements describe quality attributes, for example:
+
+- The ingestion pipeline should process 1 million documents per day.
+- Search results should respect source-system permissions.
+- Retrieval latency should stay under a defined threshold.
+- The platform should recover from worker failure without data loss.
+- All document access should be auditable.
+
+### Common NFR categories
+
+| NFR category | What it means | Ingestion example |
+| --- | --- | --- |
+| Scalability | Can the system grow with load? | Handle more tenants, sources, documents, and embeddings. |
+| Availability | Is the system usable when parts fail? | Retrieval remains available even if ingestion workers are delayed. |
+| Reliability | Does it behave correctly over time? | Jobs are idempotent and can be retried safely. |
+| Performance | Is it fast enough? | Extraction, indexing, and retrieval meet latency targets. |
+| Security | Is access protected? | ACL-aware retrieval prevents unauthorized document exposure. |
+| Privacy | Is sensitive data handled correctly? | PII is masked, encrypted, or excluded where required. |
+| Compliance | Does it meet regulatory requirements? | Audit logs, retention policies, and data residency controls. |
+| Observability | Can we detect and debug problems? | Metrics for freshness, failures, backlog, latency, and quality. |
+| Maintainability | Can engineers safely evolve it? | Versioned processors, schemas, indexes, and ADRs. |
+| Cost efficiency | Is cost controlled? | Batch embeddings, cache results, and avoid unnecessary reprocessing. |
+
+### What the interviewer is really asking
+
+When an interviewer asks about NFRs, they want to know whether you think like a production architect.
+
+They are testing whether you consider:
+
+- Scale
+- Latency
+- Security
+- Reliability
+- Availability
+- Cost
+- Compliance
+- Operability
+- Maintainability
+- Failure recovery
+
+### Good interview answer pattern
+
+Use this structure:
+
+1. **Separate functional from non-functional requirements**
+   - Functional: what the system does.
+   - Non-functional: how well, how safely, and under what constraints it does it.
+
+2. **Tie NFRs to business risk**
+   - Security prevents data leaks.
+   - Freshness affects trust.
+   - Latency affects user experience.
+   - Availability affects adoption.
+
+3. **Make NFRs measurable**
+   - Avoid vague phrases like "fast" or "scalable."
+   - Use measurable targets: latency, throughput, error rate, freshness, recovery time.
+
+4. **Show architectural consequences**
+   - NFRs drive queue design, partitioning, caching, indexing, monitoring, deployment strategy, and access control.
+
+### Interview-ready framing
+
+> NFRs are the production qualities of the system. For ingestion, I would define NFRs around scalability, freshness, reliability, security, permission correctness, retrieval latency, observability, and cost. For example, it is not enough to say the system ingests documents; we need to define how many documents per day, how fresh the index should be, how ACLs are enforced, what happens when workers fail, and how we detect bad extraction or indexing quality.
+
+---
+
+## SDLC — Software Development Life Cycle
+
+**SDLC** describes the structured process used to plan, build, test, release, operate, and improve software.
+
+A typical SDLC includes:
+
+```text
+Discovery / Requirements
+  → Design
+  → Implementation
+  → Testing / Validation
+  → Release / Deployment
+  → Operations / Monitoring
+  → Feedback / Iteration
+```
+
+In enterprise environments, SDLC often also includes governance, security reviews, architecture reviews, documentation, change management, release approvals, and post-release monitoring.
+
+### SDLC in an ingestion or AI platform project
+
+| SDLC phase | What happens | Ingestion example |
+| --- | --- | --- |
+| Discovery / Requirements | Understand business goals, users, constraints, and risks. | Which sources must be ingested? What freshness, compliance, and ACL requirements exist? |
+| Design | Create HLSD, ADRs, dataflows, APIs, schemas, and deployment model. | Decide connector architecture, chunking strategy, vector DB, and permission model. |
+| Implementation | Build the system components. | Build crawlers, parsers, workers, queues, metadata store, indexers, and retrieval APIs. |
+| Testing / Validation | Verify correctness, quality, security, and performance. | Test extraction quality, ACL correctness, indexing completeness, latency, and failure handling. |
+| Release / Deployment | Roll out safely. | Use feature flags, canaries, staged rollout, shadow indexes, and rollback plans. |
+| Operations / Monitoring | Run the system in production. | Monitor backlog, freshness, failures, cost, latency, retrieval quality, and alerts. |
+| Feedback / Iteration | Improve based on production signals. | Tune chunking, add connectors, improve extraction, reduce failures, and update ADRs. |
+
+### What the interviewer is really asking
+
+When an interviewer asks about SDLC, they are usually testing whether you can work in a mature engineering organization, not just build a prototype.
+
+They want to hear that you understand:
+
+- Requirements gathering
+- Design review
+- Documentation
+- Implementation discipline
+- Testing strategy
+- Security review
+- CI/CD
+- Release management
+- Monitoring and incident response
+- Feedback loops
+- Continuous improvement
+
+### SDLC for AI systems
+
+For AI and RAG systems, SDLC needs additional validation steps:
+
+- Dataset or document-corpus analysis
+- Evaluation set creation
+- Retrieval-quality evaluation
+- Groundedness and hallucination checks
+- Permission-leakage tests
+- Regression tests for prompts, models, chunking, and retrievers
+- Human review for high-risk workflows
+- Monitoring for quality drift and data drift
+- Model, prompt, embedding, and index versioning
+
+### Good interview answer pattern
+
+Use this structure:
+
+1. **Start from requirements and risks**
+   - Business goal, users, data sources, security needs, scale, and compliance.
+
+2. **Move to design artifacts**
+   - HLSD for architecture, ADRs for major decisions, LLDs for implementation details.
+
+3. **Explain validation**
+   - Unit tests, integration tests, load tests, security tests, data-quality checks, retrieval-quality evals.
+
+4. **Explain safe release**
+   - CI/CD, feature flags, canary deployment, staged rollout, rollback.
+
+5. **Explain production operation**
+   - Monitoring, alerts, runbooks, incident response, retrospectives, continuous improvement.
+
+### Interview-ready framing
+
+> SDLC is the end-to-end process for delivering production software. For an ingestion platform, I would start with requirements and NFRs, then create an HLSD, capture major tradeoffs in ADRs, build the implementation, validate extraction quality and permission correctness, release gradually with feature flags or canaries, and operate it with monitoring, runbooks, and incident review. For AI systems, I would also include retrieval evals, groundedness checks, regression tests for chunking and prompts, and quality monitoring after release.
+
+---
+
 ## Relationship Between HLSD, ADR, and LLD
 
 | Artifact | Purpose | Example in ingestion |
@@ -284,6 +449,12 @@ Requirements → HLSD → ADRs → LLDs → Implementation → Runbooks → Oper
 11. **Blast-radius reduction**
     - How to isolate failures by tenant, source, pipeline stage, model version, index version, or deployment ring.
 
+12. **NFR tradeoffs**
+    - How scalability, latency, availability, security, compliance, and cost shape the architecture.
+
+13. **SDLC and release safety**
+    - How the team moves from requirements to design, implementation, validation, deployment, monitoring, and iteration.
+
 ---
 
 ## Interview-ready framing
@@ -300,12 +471,19 @@ When asked specifically about blast radius:
 
 > I would explain how the design limits the impact of failures. For example, isolate ingestion by tenant and source, use versioned processors and indexes, roll out changes gradually, keep raw data for replay, and make jobs idempotent so a failed or bad run can be safely retried or rolled back.
 
+When asked specifically about NFRs:
+
+> I would separate what the system does from how well it must operate. For ingestion, NFRs include scale, freshness, reliability, security, ACL correctness, latency, observability, cost, and compliance. These requirements directly shape the architecture because they determine queueing, partitioning, storage, indexing, monitoring, and release strategy.
+
+When asked specifically about SDLC:
+
+> I would describe the full delivery process: requirements and NFRs, HLSD and ADRs, implementation, validation, release, monitoring, and iteration. For AI ingestion systems, I would add retrieval-quality evals, permission-leakage tests, groundedness checks, and versioning for prompts, models, chunking, embeddings, and indexes.
+
 ---
 
 ## Terms to add later
 
 - LLD — Low-Level Design
-- NFR — Non-Functional Requirement
 - SLO / SLA / SLI
 - RTO / RPO
 - Data lineage
