@@ -76,3 +76,7 @@ Secondary if they want hands-on implementation depth: `Hossein Akhlaghpour Resum
 ## Recommended Reply Strategy
 
 Respond warmly and positively. This is worth prioritizing. Mention direct alignment with client-facing AI architecture, enterprise GenAI, RAG/agentic architectures, context engineering, evaluation/governance, and reusable reference architectures. Confirm openness to CST/EST hours if true. Offer 2–3 time windows and attach the AI Architect Enterprise GenAI resume.
+
+## Interview Prep
+
+Technical interview Q&A with model answers: `2026-Insight-Global-IG-Labs-AI-Technical-Architect-Interview-QA.md`

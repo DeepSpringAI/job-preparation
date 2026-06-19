@@ -59,3 +59,7 @@ Possible small tailoring theme:
 ## Recommended Reply Strategy
 
 Respond quickly and warmly. Do not over-explain. Attach or offer the Principal / Staff Applied AI Engineer resume. Mention availability for a short call and highlight direct alignment with enterprise AI agents, data ingestion, context engineering, knowledge systems, and architecture tooling.
+
+## Interview Prep
+
+Technical interview Q&A (107 questions with model answers): `2026-Insight-Global-Principal-AI-Engineer-Interview-QA.md`
