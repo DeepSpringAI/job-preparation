@@ -107,6 +107,132 @@ Serving Layer
 
 ---
 
+## Dataflow
+
+A **dataflow** describes how data moves through the system from source to destination.
+
+In an ingestion system, dataflow usually means:
+
+```text
+Source System
+  → Connector / Crawler
+  → Raw Capture
+  → Extraction / OCR
+  → Cleaning / Normalization
+  → Chunking
+  → Metadata + ACL Capture
+  → Embedding / Indexing
+  → Storage
+  → Retrieval / Serving
+  → Monitoring / Feedback
+```
+
+### What the interviewer is really asking
+
+When an interviewer asks about dataflows, they usually want to know whether you understand:
+
+- Where data enters the system
+- What transformations happen to it
+- Where data is stored
+- Which services depend on which outputs
+- Where permissions and metadata are preserved
+- Where failures, retries, and reprocessing happen
+- How freshness and consistency are maintained
+
+### Good interview answer pattern
+
+Use this structure:
+
+1. **Start with the source**
+   - What system does the data come from?
+   - Is it batch, streaming, webhook-based, or incremental sync?
+
+2. **Describe the ingestion boundary**
+   - How does the platform authenticate?
+   - How are rate limits, pagination, and retries handled?
+
+3. **Describe processing stages**
+   - Extraction, OCR, parsing, cleaning, chunking, metadata enrichment, embeddings.
+
+4. **Describe storage and indexes**
+   - Raw store, metadata DB, search index, vector index, cache.
+
+5. **Describe serving path**
+   - Retrieval API, RAG service, access-control checks, observability.
+
+6. **Mention failure handling**
+   - Idempotency, retry, dead-letter queue, partial failure, replay, reprocessing.
+
+### Interview-ready framing
+
+> For dataflow, I would describe the path of the data end to end. For example, a document starts in SharePoint, is discovered by a connector, captured with metadata and permissions, extracted into text, cleaned, chunked, embedded, indexed, and then served through a retrieval API. I would also call out where access control is preserved, where failures are retried, and how we reprocess documents when the chunking strategy or embedding model changes.
+
+---
+
+## Blast Radius
+
+**Blast radius** means the scope of impact when something fails or behaves incorrectly.
+
+In system design, it answers:
+
+- If this component fails, what breaks?
+- How many users, tenants, documents, workflows, or downstream systems are affected?
+- Can the failure be isolated?
+- Can the system degrade gracefully?
+- Can we stop, rollback, or contain the damage?
+
+### Examples in ingestion
+
+| Failure | Large blast radius | Smaller blast radius |
+| --- | --- | --- |
+| Bad parser release | All document types fail globally | Only one parser version / document type is affected |
+| Embedding model bug | Entire vector index becomes unreliable | New embeddings are written to a versioned shadow index |
+| Connector credential failure | All customers lose ingestion | One tenant/source is paused |
+| Bad ACL handling | Users may see unauthorized documents | Retrieval is blocked if ACL validation fails |
+| Queue backlog | Whole pipeline stops | Backlog isolated by tenant/source/priority queue |
+| Reprocessing job bug | Existing production index is corrupted | Reprocessing writes to a new index and swaps after validation |
+
+### What the interviewer is really asking
+
+When an interviewer asks about blast radius, they are testing whether you design for operational safety, not just happy-path functionality.
+
+They want to hear about:
+
+- Isolation by tenant, source, region, queue, or index
+- Feature flags and gradual rollout
+- Versioned schemas, models, indexes, and processors
+- Circuit breakers and kill switches
+- Backpressure and rate limiting
+- Safe retries and idempotency
+- Shadow writes and validation before promotion
+- Rollback strategy
+- Monitoring and alerting
+
+### Good interview answer pattern
+
+Use this structure:
+
+1. **Identify the failure mode**
+   - Parser bug, bad embeddings, connector outage, permission issue, queue backlog, database outage.
+
+2. **Define the impacted scope**
+   - One document, one source, one tenant, one region, or the whole platform.
+
+3. **Explain containment**
+   - Tenant isolation, queue partitioning, feature flag, circuit breaker, versioned index.
+
+4. **Explain recovery**
+   - Retry, replay, rollback, reprocess, restore from raw data, switch index alias.
+
+5. **Explain detection**
+   - Metrics, alerts, dashboards, canaries, evaluation checks, audit logs.
+
+### Interview-ready framing
+
+> For blast radius, I would first identify what can fail and then explain how the design limits the impact. In ingestion, I would isolate work by tenant and source, use idempotent jobs, keep raw documents so we can reprocess, version parsers and embedding indexes, and roll out changes gradually with feature flags or shadow indexes. The goal is that a bad connector, parser, or model change affects only a limited slice of the system and can be rolled back or replayed safely.
+
+---
+
 ## Relationship Between HLSD, ADR, and LLD
 
 | Artifact | Purpose | Example in ingestion |
@@ -155,6 +281,9 @@ Requirements → HLSD → ADRs → LLDs → Implementation → Runbooks → Oper
 10. **Observability and evaluation**
     - Track freshness, coverage, latency, extraction failures, retrieval quality, and answer quality.
 
+11. **Blast-radius reduction**
+    - How to isolate failures by tenant, source, pipeline stage, model version, index version, or deployment ring.
+
 ---
 
 ## Interview-ready framing
@@ -162,6 +291,14 @@ Requirements → HLSD → ADRs → LLDs → Implementation → Runbooks → Oper
 When asked about ingestion architecture, a strong answer is:
 
 > I would start with an HLSD to define the end-to-end ingestion architecture: sources, connectors, sync model, processing pipeline, storage, indexing, access control, retrieval, monitoring, and operational flows. Then I would create ADRs for the major decisions, such as vector database selection, chunking strategy, embedding model, permission enforcement, and reprocessing strategy. The HLSD gives everyone the shared architecture picture, while ADRs preserve the reasoning behind important tradeoffs.
+
+When asked specifically about dataflow:
+
+> I would walk through the lifecycle of a document from the source system to the retrieval path, including connector discovery, extraction, metadata and ACL capture, chunking, embeddings, indexing, storage, and serving. I would also mention where failures are retried and how reprocessing works.
+
+When asked specifically about blast radius:
+
+> I would explain how the design limits the impact of failures. For example, isolate ingestion by tenant and source, use versioned processors and indexes, roll out changes gradually, keep raw data for replay, and make jobs idempotent so a failed or bad run can be safely retried or rolled back.
 
 ---
 
