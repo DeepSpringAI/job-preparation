@@ -398,6 +398,139 @@ Use this structure:
 
 ---
 
+## BM25
+
+**BM25** is a classic keyword-based ranking algorithm used in search engines. It scores documents based on how well their terms match the query, while accounting for term frequency, inverse document frequency, and document length.
+
+In practical terms:
+
+- It rewards documents that contain important query terms.
+- It downweights very common words that appear everywhere.
+- It avoids over-rewarding a word just because it appears many times.
+- It normalizes for document length so long documents do not always dominate.
+
+### Why BM25 matters in ingestion and RAG
+
+BM25 is important because dense vector search is not always enough. Vector search is strong for semantic similarity, but BM25 is often better for:
+
+- Exact terms
+- Names
+- IDs
+- Ticket numbers
+- Error messages
+- Legal clauses
+- Product codes
+- API names
+- Rare domain-specific phrases
+
+For enterprise RAG, a strong retrieval stack often uses **hybrid retrieval**:
+
+```text
+User Query
+  → BM25 keyword search
+  → Vector semantic search
+  → Merge / normalize scores
+  → Rerank top candidates
+  → Apply ACL filters
+  → Return grounded context to the LLM
+```
+
+### BM25 vs vector search
+
+| Technique | Best for | Weakness |
+| --- | --- | --- |
+| BM25 | Exact keyword matching, identifiers, rare terms, error messages | Does not understand semantic similarity well |
+| Vector search | Semantic similarity, paraphrases, conceptual matches | Can miss exact identifiers or over-match vague concepts |
+| Hybrid retrieval | Combining exact and semantic matching | More complex scoring, tuning, and evaluation |
+
+### Interview-ready framing
+
+> BM25 is a keyword ranking method that is still very useful in enterprise RAG. I would not rely only on vector search because users often ask about exact entities, error messages, document IDs, legal terms, or API names. A production retrieval system usually combines BM25 with vector search, then reranks the merged results and enforces ACLs before sending context to the LLM.
+
+---
+
+## Context similarity and retrieval evaluation techniques
+
+**Context similarity** techniques measure whether retrieved context, generated answers, or candidate passages are similar to the expected reference text or relevant documents.
+
+In RAG interviews, this often comes up when discussing retrieval quality, hallucination prevention, or evaluation.
+
+### Common techniques
+
+| Technique | What it measures | Best use |
+| --- | --- | --- |
+| Cosine similarity | Angle similarity between embedding vectors | Semantic similarity between query and chunks |
+| Dot product similarity | Vector alignment, often used by embedding models | Fast vector ranking when embeddings are normalized or model expects dot product |
+| Euclidean distance | Geometric distance between vectors | Some vector indexes and clustering tasks |
+| Jaccard similarity | Token or set overlap | Simple keyword overlap, deduplication, near-duplicate detection |
+| ROUGE | N-gram overlap between generated text and reference text | Summarization or answer-overlap evaluation |
+| BLEU | N-gram precision against references | Translation-style or exact-overlap evaluation, less ideal for open-ended RAG |
+| Precision@K | How many top-K retrieved chunks are relevant | Retrieval evaluation |
+| Recall@K | How many known relevant chunks were retrieved in top K | Retrieval coverage evaluation |
+| MRR | Rank of the first relevant result | Search quality when one good result matters |
+| nDCG | Ranking quality with graded relevance | Search quality when results have different usefulness levels |
+| Reranker score | Cross-encoder or LLM score for query-context relevance | Improving final context selection |
+| LLM-as-judge | LLM-based assessment of relevance, groundedness, or answer quality | Qualitative eval, often with human calibration |
+
+### ROUGE, not ROGUE
+
+The common metric is **ROUGE**, not **ROGUE**.
+
+ROUGE stands for **Recall-Oriented Understudy for Gisting Evaluation**. It compares overlap between a generated answer or summary and a reference answer or summary.
+
+Common variants:
+
+- **ROUGE-1:** unigram overlap.
+- **ROUGE-2:** bigram overlap.
+- **ROUGE-L:** longest common subsequence overlap.
+
+### Important caveat for RAG
+
+ROUGE is useful when there is a known reference answer, but it is not enough by itself for enterprise RAG because two correct answers can use different wording.
+
+For RAG, better evaluation usually combines:
+
+```text
+Retrieval metrics
+  → Precision@K
+  → Recall@K
+  → MRR
+  → nDCG
+
+Semantic metrics
+  → Embedding similarity
+  → Reranker score
+
+Answer-quality metrics
+  → Groundedness
+  → Faithfulness
+  → Citation correctness
+  → Completeness
+  → LLM-as-judge with rubric
+
+Safety metrics
+  → Permission leakage
+  → PII exposure
+  → Abstention correctness
+```
+
+### How to choose the right metric
+
+| Question | Better metric |
+| --- | --- |
+| Did we retrieve the right chunks? | Recall@K, Precision@K, MRR, nDCG |
+| Are two passages semantically close? | Cosine similarity or reranker score |
+| Does the answer match a reference summary? | ROUGE, sometimes BLEU |
+| Is the answer grounded in retrieved evidence? | Groundedness / faithfulness eval |
+| Did retrieval leak unauthorized data? | Permission-leakage tests |
+| Did the system correctly refuse when context is insufficient? | Abstention accuracy |
+
+### Interview-ready framing
+
+> For context similarity, I would distinguish retrieval metrics from answer-overlap metrics. BM25 and vector similarity help retrieve candidate chunks. Precision@K, Recall@K, MRR, and nDCG evaluate whether the right chunks were retrieved. ROUGE can compare generated text to a reference answer, but for RAG I would not rely on ROUGE alone because correct answers may be phrased differently. I would combine retrieval metrics, semantic similarity, reranker scores, groundedness checks, citation correctness, and permission-leakage tests.
+
+---
+
 ## Relationship Between HLSD, ADR, and LLD
 
 | Artifact | Purpose | Example in ingestion |
@@ -455,6 +588,12 @@ Requirements → HLSD → ADRs → LLDs → Implementation → Runbooks → Oper
 13. **SDLC and release safety**
     - How the team moves from requirements to design, implementation, validation, deployment, monitoring, and iteration.
 
+14. **Retrieval strategy**
+    - Whether to use BM25, vector search, hybrid retrieval, reranking, graph-enhanced retrieval, or a combination.
+
+15. **Evaluation strategy**
+    - Which metrics to use for retrieval quality, answer quality, groundedness, citation correctness, and permission safety.
+
 ---
 
 ## Interview-ready framing
@@ -479,6 +618,14 @@ When asked specifically about SDLC:
 
 > I would describe the full delivery process: requirements and NFRs, HLSD and ADRs, implementation, validation, release, monitoring, and iteration. For AI ingestion systems, I would add retrieval-quality evals, permission-leakage tests, groundedness checks, and versioning for prompts, models, chunking, embeddings, and indexes.
 
+When asked specifically about BM25:
+
+> I would explain that BM25 is a keyword ranking method and is still critical for enterprise search because exact terms, identifiers, names, error messages, legal clauses, and API names may not be captured reliably by vector search alone. In production RAG, I would usually combine BM25 with vector search, reranking, and ACL enforcement.
+
+When asked specifically about context similarity or retrieval evaluation:
+
+> I would separate retrieval evaluation from answer evaluation. For retrieval, I would use Precision@K, Recall@K, MRR, and nDCG. For semantic similarity, I would use embedding similarity or reranker scores. For generated answers, ROUGE can help when there is a reference answer, but I would also evaluate groundedness, citation correctness, completeness, abstention behavior, and permission safety.
+
 ---
 
 ## Terms to add later
@@ -493,8 +640,6 @@ When asked specifically about SDLC:
 - Idempotency
 - Reprocessing
 - Schema evolution
-- Hybrid retrieval
-- Reranking
 - ACL-aware retrieval
 - Observability
 - Runbook
