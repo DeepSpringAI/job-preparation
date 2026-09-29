@@ -863,3 +863,117 @@ The interviewer should interrupt and drill into:
 8. why the design is not simply RAG
 9. what was personally owned vs delegated
 10. connection to Fluidstack Decision Engineering
+
+
+---
+
+# Coaching Session 1 — Spoken Answer Review
+
+## Candidate answer summary
+
+Hossein described:
+- DealCloud as a major CRM platform for private equity / private capital.
+- The core challenge: every customer can customize its schema, making navigation and query construction difficult for users.
+- The first production release: a chat interface that interprets natural-language questions, maps intent to the customer's schema, generates a SQL query, executes it, returns structured results, and supplements them with natural-language explanation.
+- Personal ownership of the initial release.
+- Evolution from conversational querying to agentic workflows.
+- Deal-sourcing use case: ingest the firm's investment strategy, evaluate candidate companies, enrich candidates with external sources such as PitchBook, rank them, select a small top set, run deeper research, and return the results.
+- Future evolution from sourcing toward outreach and due diligence.
+
+## What worked
+
+1. Strong business context before technical detail.
+2. Clear explanation of customized schemas as the motivating difficulty.
+3. Good zero-to-one ownership signal: "I initially owned that and we released it."
+4. Natural evolution from question answering to decision workflows.
+5. Good instinct to distinguish simple structured querying from multi-step sourcing.
+6. External enrichment + investment-thesis matching is a strong bridge to Decision Engineering.
+
+## What to improve
+
+### 1. Make personal ownership explicit earlier
+
+Replace vague phrasing like:
+- "what we did"
+- "we created"
+- "we moved on"
+
+with a clearer split:
+- "I led the architecture and first production release..."
+- "I designed..."
+- "My team and I..."
+- "As the project expanded, I owned the deal-sourcing workflow while partnering with adjacent teams..."
+
+The interviewer asked what **you personally owned**.
+
+### 2. Make the first system sound safer than unrestricted text-to-SQL
+
+Avoid implying that the LLM had direct database freedom.
+
+Preferred framing:
+- map intent to a customer-specific semantic/schema layer
+- generate a constrained query or SQL candidate
+- validate fields, joins, permissions, and read-only rules
+- execute only after validation
+
+### 3. Add the CRM deep-link/product integration point
+
+An important part of the first release was that the AI answer did not replace the CRM. Results linked back to the corresponding DealCloud pages/records.
+
+This makes the system feel like production software, not a chatbot demo.
+
+### 4. Give deal sourcing a memorable pipeline
+
+Use this sequence:
+
+**investment thesis → candidate generation → enrichment → entity resolution → scoring/ranking → deep research → evidence-backed shortlist**
+
+That is easier for an interviewer to follow than a long narrative.
+
+### 5. Explain why the top-N research stage exists
+
+Instead of saying only "pick top five," explain the architecture decision:
+
+- broad/cheap retrieval over many candidates
+- structured ranking
+- expensive deep research only for the highest-ranked candidates
+
+This demonstrates latency/cost/compute awareness.
+
+### 6. Introduce evaluation / customer benchmark
+
+The answer currently jumps from implementation to result. Add:
+- worked with representative customers/focus groups
+- converted real sourcing questions into benchmark cases
+- measured ranking/retrieval quality, evidence grounding, and user acceptance
+
+This is a major Principal-level signal.
+
+### 7. End before due diligence unless prompted
+
+For a 2–4 minute answer, say:
+"The same architecture later expanded into outreach and due diligence, which became a larger multi-team workflow."
+
+Then stop.
+
+Let the interviewer ask:
+"How did diligence work?"
+
+This creates a clean follow-up rather than weakening the main story by rushing the last section.
+
+## Recommended answer structure
+
+1. Business problem
+2. Personal ownership
+3. First production architecture
+4. Why it mattered
+5. Evolution into sourcing
+6. Sourcing pipeline
+7. Evaluation / customer feedback
+8. One-sentence diligence extension
+9. Lesson / relevance to Decision Engineering
+
+## Strong closing sentence
+
+"The key evolution was from using AI as a conversational interface over enterprise data to using it as part of the actual decision workflow—combining domain criteria, structured and unstructured evidence, tools, ranking, validation, and human judgment."
+
