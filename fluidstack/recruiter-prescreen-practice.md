@@ -40,3 +40,36 @@ For Business Operations specifically, I like that the problems are concrete and 
 
 ## Likely recruiter follow-up
 "Can you give me an example of a time you worked closely with non-engineering stakeholders to understand a business process and turn it into a technical solution?"
+
+
+## Question: Example of working with non-engineering stakeholders
+
+### Candidate's natural answer
+Hossein described working with financial analysts in private-equity customer focus groups after releasing the first conversational CRM interface. Through observing and discussing their workflow, he realized the larger pain point was not simply retrieving CRM records; analysts spent substantial time enriching candidate companies from sources such as PitchBook and FactSet, interpreting less-structured attributes such as founder-led ownership, and comparing the evidence against the firm's investment strategy. That observation motivated an agentic deal-sourcing workflow that automated more of the research and qualification process.
+
+### What worked
+- Strong discovery story: customer observation changed the product direction.
+- Shows interaction with domain experts rather than receiving static requirements.
+- Clearly distinguishes information retrieval from the higher-value research/decision workflow.
+- Good examples of external data sources and implicit attributes.
+- Strong match to Fluidstack's current Business Operations expectation that Decision Engineers embed with experts and turn real workflows into structured software.
+
+### Improvements
+- Lead with the outcome: "We initially thought retrieval was the core problem; customer observation showed us research and qualification were the real bottleneck."
+- Use "private-equity investment professionals / analysts" rather than "financial analyst of a focus group of private equities."
+- Clarify the discovery method: observe workflow, ask why each step exists, capture decision criteria, then prototype and review with users.
+- Replace vague phrases such as "agentic interface" with a concrete pipeline: thesis criteria → retrieve candidates → external enrichment → evidence extraction → ranking → deep research → user review.
+- End with what changed: reduced manual research / produced an evidence-backed shortlist / created a repeatable benchmark, depending on the claim Hossein chooses to substantiate.
+- Mention tradeoffs only briefly in recruiter screen: focus deep research on highest-value candidates to manage latency/cost.
+
+### Recruiter-ready version
+"A good example was after we launched the first conversational interface for DealCloud. We initially thought the biggest problem was helping users retrieve information from a highly customized CRM, and the chatbot did make that much easier.
+
+But I worked directly with investment professionals in customer focus groups and spent time understanding what they did after they got the initial list of companies. That showed us the larger bottleneck. They would take those companies, go into sources such as PitchBook and FactSet, research each one, look for attributes that were not always represented cleanly as structured fields—things like whether a business was founder-led—and then compare all of that against the firm's investment strategy. That process required a lot of manual research and judgment.
+
+So instead of just asking users whether they liked the chatbot, we mapped their actual workflow step by step and identified where AI could create the most leverage. That led us toward a deal-sourcing workflow: translate the investment thesis into explicit criteria, retrieve a candidate set, enrich each company from approved external sources, extract the relevant evidence, rank the candidates, and then perform deeper research on the strongest opportunities.
+
+We kept reviewing that workflow with the customer groups, both to improve the product and to create realistic benchmark cases for evaluation. The important lesson for me was that the best AI use case was not the first one we imagined. It came from working closely with the domain experts, understanding where their time and judgment were really being spent, and then redesigning the system around that workflow."
+
+### Likely follow-up
+"How did you decide what parts of that workflow should be handled by AI versus deterministic software or human judgment?"
