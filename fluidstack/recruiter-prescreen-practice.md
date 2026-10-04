@@ -73,3 +73,37 @@ We kept reviewing that workflow with the customer groups, both to improve the pr
 
 ### Likely follow-up
 "How did you decide what parts of that workflow should be handled by AI versus deterministic software or human judgment?"
+
+
+## Question: How do you decide AI vs deterministic software vs human-in-the-loop?
+
+### Candidate's natural answer
+Hossein described decomposing the firm's investment strategy into explicit scoring criteria, evaluating candidate companies against those criteria, using AI/tool calls to gather evidence from the CRM, web, and external data providers, and tracking confidence for each criterion. When confidence fell below a threshold, the workflow paused for human clarification or review before continuing.
+
+### What worked
+- Strong use of explicit investment criteria rather than opaque end-to-end scoring.
+- Good instinct to track confidence at the criterion/evidence level.
+- Clear human-in-the-loop escalation path instead of forcing an answer.
+- Good description of asynchronous/long-running research behavior.
+- Matches the general direction of production agentic systems with guardrails, authorization, and evals.
+
+### Improvements
+- Answer the three-part question explicitly: AI for ambiguity, deterministic code for invariants, humans for judgment/low-confidence decisions.
+- Avoid implying the confidence number is always a calibrated model probability. Call it a confidence/evidence sufficiency score unless there is a validated probabilistic model.
+- Add examples of deterministic logic: permission checks, exact calculations, schema validation, scoring rules, workflow state, rate/cost limits.
+- Clarify that the human is not only a fallback for model uncertainty; humans should also approve consequential actions and define ambiguous business preferences.
+- Mention that the system should preserve evidence/provenance so the user can see why a criterion was scored.
+
+### Recruiter-ready version
+"We tried to separate the workflow into three categories. I use AI where the problem is ambiguous or unstructured, deterministic software where the rules need to be exact, and human judgment where either the evidence is insufficient or the decision is consequential.
+
+For deal sourcing, we first translated the firm's investment strategy into explicit criteria. Then the AI could gather and interpret evidence from sources such as our CRM, PitchBook, and other research sources. For each criterion, the system kept the evidence it found and an indication of how confident or complete that evidence was.
+
+But things like permissions, numerical calculations, schema validation, workflow state, and the scoring rules themselves were handled deterministically. I don't want an LLM deciding whether a user is authorized to see data or doing an important financial calculation from free-form text.
+
+Then we had human-in-the-loop checkpoints. If the investment thesis was ambiguous, if the evidence for an important criterion was weak, or if the system was about to take a consequential action, we would pause and ask the user to clarify or approve the next step. Once that information came back, the workflow could continue.
+
+So the principle was controlled autonomy: automate as much of the research as possible, but make uncertainty visible and keep humans involved where their judgment actually matters."
+
+### Likely recruiter follow-up
+"Tell me about a time this approach failed or where the AI produced a result that looked reasonable but was wrong. How did you catch it and improve the system?"
